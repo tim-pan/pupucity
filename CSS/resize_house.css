@@ -1,0 +1,26 @@
+
+
+.handler{
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: white;
+  border: 1px solid black;
+  
+  &._se{
+    bottom: -5px;
+    right: -5px;
+  }
+  &._sw{
+    bottom: -5px;
+    left: -5px;
+  }
+  &._nw{
+    top: -5px;
+    left: -5px;
+  }
+  &._ne{
+    top: -5px;
+    right: -5px;
+  }
+}
