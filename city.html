@@ -1,0 +1,415 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>種子社群</title>
+<style type="text/css">
+    
+
+body{
+	background-image:url("種子社群街區/介面切片/背景大圖.png");
+	background-position: center ;
+　	background-repeat:no-repeat;
+ 	background-attachment:fixed;
+	background-size:cover;
+	
+}
+input[type="image"] {
+    outline: none;
+}
+
+
+#back2:hover,#back3:hover,#back4:hover,#back5:hover,#back6:hover,#back7:hover,#land2:hover,#land3:hover,#land4:hover,#land5:hover,#land6:hover,#land7:hover,#road2:hover,#road3:hover,#road4:hover,.jscolor:hover,.equi:hover,.house:hover,.car:hover,.tree:hover{
+    -webkit-filter:drop-shadow(0px 0px 15px #FFFF00);
+    filter: drop-shadow(0px 0px 15px #FFFF00);
+}
+
+.ui-resizable-handle{
+	opacity:0;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+::-ms-scrollbar {
+    display: none;
+}
+::-moz-scrollbar {
+    display: none;
+}
+::-o-scrollbar {
+    display: none;
+}
+
+
+</style>
+<script src="js檔/jquery-3.4.1.js"></script>
+<link rel="stylesheet" href="js檔\jquery-ui.custom\jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="js檔\jquery-ui.custom\jquery-ui.min.js"></script>
+
+<script src="js檔/resizable-rotation.patch.js"></script>
+
+<link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+<script src="js檔/jscolor.js"></script>
+<script src="js檔/設備/drag.js"></script><!順序不可變換>
+<script src="js檔/房屋/drag.js"></script>
+<script src="js檔/車輛/drag_car.js"></script>
+<script src="js檔/行道樹/tree.js"></script>
+<script src="js檔/背景/back.js"></script>
+<script src="js檔/地形/land.js"></script>
+<script src="js檔/鋪路/road.js"></script>
+<script src="js檔/button_function.js"></script>
+<script src="js檔/上傳圖檔/upload_img.js"></script>
+<script src="js檔/clickScroll.js"></script>
+
+
+</head>
+
+<body >
+<!這是工作區，想法是把背景地形啥地都裝在同一個區塊中，然後再一併控制大小>
+<div class="網格"  style="text-items:center">
+	<!以下背景部分>
+	<div id="pcolor" style="position:absolute;top:17%;bottom:15%;left:0%;overflow: auto">
+	<img id="nullback"  src="種子社群街區/介面切片/網格1.png" width="700%" height="100%" style="background-color:white;opacity:0.5;overflow: auto">
+
+	</div>
+
+	<!以下地形部分>
+	<p id="pcolor2" style="position:absolute;top:50%;bottom:13%;left:0%;overflow: auto">
+	<img id="landform"  src="種子社群街區/地形切片/地形1.png" width="700%" height="100%" style="visibility:hidden;overflow: auto">
+	</p>
+
+	<!以下鋪路部分>
+	<p id="pcolor3" style="position:absolute;top:56.5%;bottom:18%;left:0%;overflow: scroll">
+	<img id="paveroad"  src="種子社群街區/鋪路切片/鋪路1.png" width="700%" height="100%" style="visibility:hidden;overflow: auto">
+	</p>
+	<div id="back_for_drag" style="position:absolute;top:17.55%;bottom:15.3%;left:0%;right:0%;overflow:auto">
+		<img src="種子社群街區/鋪路切片/鋪路1.png" width="700%" height="100%" style="position:absolute;visibility:hidden;overflow: auto;z-index: -99">
+	</div>
+</div>
+
+
+
+<div class="按鈕16">
+  <p style="position:fixed;top:48%;right:3%;z-index:99999">
+  <input type="image" name="imageField16" id="imageField16" src="種子社群街區/介面切片/右移鍵.png" width = "80%" height = "80%" style="margin-top:-30%">	
+	</p>	  
+</div>
+	
+<div class="按鈕15">
+  <p style="position:fixed;top:48%;left:5%;z-index:99999;">
+  <input type="image" name="imageField15" id="imageField15" src="種子社群街區/介面切片/左移鍵.png" width = "80%" height = "80%" style="visibility:hidden;margin-top:-30%">	
+	</p>	  
+</div>
+	
+<div class="按鈕14">
+  <p style="position:fixed;top:0%;right:2%">
+  <input type="image" name="imageField14" id="imageField14" src="種子社群街區/介面切片/叉叉鍵.png" width = "100%" height = "100%" >	
+	</p>	  
+</div>
+	
+<div class="按鈕13" >
+  <p style="position:fixed;top:-2.5%;bottom:74%;left:3%;;">
+  <a HREF = "http://map.gis.tw/ugame"><input type="image" name="imageField13" id="imageField13" src="種子社群街區/介面切片/譜普市鍵.png" width = "70%" height = "70%" style="">
+  	
+	</a>
+	</p>	  
+</div>
+	
+
+<div class="按鈕11" width="70%" length="100%" style="position:fixed;top:86%;bottom:0%;left:0%">
+<input type="image" name="imageField1" id="imageField1" src="種子社群街區/介面切片/背景按鈕.png" width = "8.7%" height = "100%">
+<input type="image" name="imageField2" id="imageField2" src="種子社群街區/介面切片/地形按鈕.png" width = "8.7%" height = "100%" >
+<input type="image" name="imageField3" id="imageField3" src="種子社群街區/介面切片/鋪路按鈕.png" width = "8.7%" height = "100%" >
+<input type="image" name="imageField4" id="imageField4" src="種子社群街區/介面切片/設備按鈕.png" width = "8.7%" height = "100%">	
+<input type="image" name="imageField5" id="imageField5" src="種子社群街區/介面切片/房屋按鈕.png" width = "8.7%" height = "100%">
+<input type="image" name="imageField6" id="imageField6" src="種子社群街區/介面切片/車輛按鈕.png" width = "8.7%" height = "100%">	
+<input type="image" name="imageField7" id="imageField7" src="種子社群街區/介面切片/行道樹按鈕.png" width = "8.7%" height = "100%">	
+<input type="image" name="imageField9" id="imageField9" src="種子社群街區/介面切片/上傳圖檔按鈕.png" width = "8.7%" height ="100%" onclick="upload1.click()">
+	
+<input type="image" name="imageField10" id="imageField10" src="種子社群街區/介面切片/還原按鈕.png" width = "7%" height = "100%" >	
+<input type="image" name="imageField11" id="imageField11" src="種子社群街區/介面切片/暫存按鈕.png" width = "7%" height = "100%" >	
+<input type="image" name="imageField12" id="imageField12" src="種子社群街區/介面切片/下一步按鈕.png" width = "8%" height = "100%" >
+</div>
+
+<!這邊是按背景之後要出現的一排給你選的背景!>
+<div id="List3"  style="position:fixed;top:63%;left:0%;bottom:15%;display:none;z-index:99999;overflow:hidden">
+<img src="種子社群街區/介面切片/選單.png" width="100%" height="120%" style="position:relative;top:-10%">
+<div  style="position:absolute;top:6%;bottom:26%;left:3%">
+  <input class="jscolor" id="jscolor" type="image" name="back1" src="種子社群街區/背景切片/方塊背景1.png" width="13%" height="130%"> 
+  <input type="image" name="back2" id="back2" src="種子社群街區/背景切片/方塊背景2.png" width="13%" height="130%" >
+  <input type="image" name="back3" id="back3" src="種子社群街區/背景切片/方塊背景3.png" width="13%" height="130%" >
+  <input type="image" name="back4" id="back4" src="種子社群街區/背景切片/方塊背景4.png" width="13%" height="130%" >
+  <input type="image" name="back5" id="back5" src="種子社群街區/背景切片/方塊背景5.png" width="13%" height="130%" >
+  <input type="image" name="back6" id="back6" src="種子社群街區/背景切片/方塊背景6.png" width="13%" height="130%" >
+  <input type="image" name="back7" id="back7" src="種子社群街區/背景切片/方塊背景7.png" width="13%" height="130%" >
+</div> 
+</div>
+
+<!以下是地形選單的部分!>
+<div id="List4"  style="position:fixed;top:63%;left:0%;bottom:15%;display:none;z-index:99999;overflow:hidden">
+<img src="種子社群街區/介面切片/選單.png" width="100%" height="120%" style="position:relative;top:-10%">
+<div style="position:absolute;top:6%;bottom:26%;left:3%;">
+  <input class="jscolor" id="jscolor2" type="image" name="land1" id="land1" src="種子社群街區/地形切片/方塊地形1.png" width="13%" height="130%"> 
+  <input type="image" name="land2" id="land2" src="種子社群街區/地形切片/方塊地形2.png" width="13%" height="130%">
+  <input type="image" name="land3" id="land3" src="種子社群街區/地形切片/方塊地形3.png" width="13%" height="130%">
+  <input type="image" name="land4" id="land4" src="種子社群街區/地形切片/方塊地形4.png" width="13%" height="130%">
+  <input type="image" name="land5" id="land5" src="種子社群街區/地形切片/方塊地形5.png" width="13%" height="130%">
+  <input type="image" name="land6" id="land6" src="種子社群街區/地形切片/方塊地形6.png" width="13%" height="130%">
+  <input type="image" name="land7" id="land7" src="種子社群街區/地形切片/方塊地形7.png" width="13%" height="130%">
+</div> 
+</div>
+
+
+<!以下是鋪路選單的部分!>
+<div id="List5"  style="position:fixed;top:63%;left:0%;bottom:15%;display:none;z-index:99999;overflow:hidden">
+<img src="種子社群街區/介面切片/選單.png" width="100%" height="120%" style="position:relative;top:-10%">
+<div style="position:absolute;top:6%;bottom:26%;left:3%;">
+  <input class="jscolor" id="jscolor3" type="image" name="land1" id="road1" src="種子社群街區/鋪路切片/方塊鋪路1.png" width="13%" height="130%">  
+  <input type="image" name="road2" id="road2" src="種子社群街區/鋪路切片/方塊鋪路2.png" width="13%" height="130%">
+  <input type="image" name="road3" id="road3" src="種子社群街區/鋪路切片/方塊鋪路3.png" width="13%" height="130%">
+  <input type="image" name="road4" id="road4" src="種子社群街區/鋪路切片/方塊鋪路4.png" width="13%" height="130%">  
+</div> 
+</div>
+<!上傳圖檔!>
+<div id="back_for_upload" style="position:absolute;top:15%;bottom:15%;left:-100%;right:100%;overflow-y:hidden;overflow-x: hidden;touch-action:none">
+	<div id="wrapper_creution_area"  style="position:fixed;top:0%;right:10%;bottom:13%;display:none;z-index:99999">
+		<input type="file" id="upload1" accept="image/*" onchange="loadFile(event)" style="display: none;">
+		<img id="output" style="display: none;"/>
+	</div>
+</div>
+<div id="hiddenupload" style="position:absolute;top:15%;bottom:15%;left:-100%;right:100%;overflow-y:hidden;overflow-x: hidden;touch-action:none">
+	<div id="wrapper_hidden"  style="position:fixed;top:0%;right:20%;bottom:13%;display:none;z-index:99999">
+		<input type="image" id="upload2" name="upload2" src="種子社群街區/鋪路切片/方塊鋪路2.png" width="13%" height="100%" style="display: none;">
+		<input type="image" id="upload3" name="upload3" src="種子社群街區/鋪路切片/方塊鋪路2.png" width="13%" height="100%" style="display: none;">
+
+	</div>
+</div>
+
+<!以下是設備選單的部分!>
+<div id="back_for_equi" style="position:absolute;top:15%;bottom:15%;left:-100%;right:100%;overflow-y:hidden;overflow-x: hidden;touch-action:none">
+	<div id="List6"  style="position:fixed;top:63%;left:0%;bottom:15%;display:none;z-index:99999;overflow:hidden">
+	<img src="種子社群街區/介面切片/選單.png" width="100%" height="120%" style="position:relative;top:-10%" >
+	<div style="position:absolute;top:10%;bottom:21%;left:3%">
+	  <input class="equi" type="image" name="equi1" id="equi1" src="種子社群街區/設備切片/選單大小/方塊設備1(82X170px).png" width="6%" height="115%" style="touch-action:none">
+	  <input class="equi" type="image" name="equi2" id="equi2" src="種子社群街區/設備切片/選單大小/方塊設備2(82X170px).png" width="6%" height="115%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi3" id="equi3" src="種子社群街區/設備切片/選單大小/方塊設備3(82X170px).png" width="6%" height="115%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi4" id="equi4" src="種子社群街區/設備切片/選單大小/方塊設備4(82X170px).png" width="6%" height="115%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi5" id="equi5" src="種子社群街區/設備切片/選單大小/方塊設備5(82X170px).png" width="6%" height="115%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi6" id="equi6" src="種子社群街區/設備切片/選單大小/方塊設備6(82X170px).png" width="6%" height="115%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi7" id="equi7" src="種子社群街區/設備切片/選單大小/方塊設備7(82X170px).png" width="6%" height="115%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi8" id="equi8" src="種子社群街區/設備切片/選單大小/方塊設備8(82X170px).png" width="6%" height="115%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi9" id="equi9" src="種子社群街區/設備切片/選單大小/方塊設備9(82X170px).png" width="6%" height="115%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi10" id="equi10" src="種子社群街區/設備切片/選單大小/方塊設備10(82X170px).png" width="6%" height="115%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi11" id="equi11" src="種子社群街區/設備切片/選單大小/方塊設備11(82X170px).png" width="6%" height="115%" style="touch-action:none" > 
+	  <input class="equi" type="image" name="equi12" id="equi12" src="種子社群街區/設備切片/選單大小/方塊設備12(95X170px).png" width="6%" height="115%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi13" id="equi13" src="種子社群街區/設備切片/選單大小/方塊設備13(60X155px).png" width="6%" height="115%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi14" id="equi14" src="種子社群街區/設備切片/選單大小/方塊設備14(60X170px).png" width="6%" height="115%" style="touch-action:none"> 
+	  
+	</div> 
+	</div>
+	<!第二頁設備>
+	<div id="List6-2"  style="position:fixed;top:63%;left:0%;bottom:15%;display:none;z-index:99999;overflow: hidden">
+	<img src="種子社群街區/介面切片/選單.png" width="100%" height="120%" style="position:relative;top:-10%" >
+	<div style="position:absolute;top:15%;bottom:15%;left:3%">
+	<input class="equi" type="image" name="equi15" id="equi15" src="種子社群街區/設備切片/選單大小/方塊設備15(130X120px).png" width="8%" height="100%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi16" id="equi16" src="種子社群街區/設備切片/選單大小/方塊設備16(153X133px).png" width="8%" height="100%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi17" id="equi17" src="種子社群街區/設備切片/選單大小/方塊設備17(130X144px).png" width="8%" height="100%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi18" id="equi18" src="種子社群街區/設備切片/選單大小/方塊設備18(100X144px).png" width="8%" height="100%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi19" id="equi19" src="種子社群街區/設備切片/選單大小/方塊設備19(90X130px).png" width="7%" height="100%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi20" id="equi20" src="種子社群街區/設備切片/選單大小/方塊設備20(280X70px).png" width="20%" height="100%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi21" id="equi21" src="種子社群街區/設備切片/選單大小/方塊設備21(156X48px).png" width="15%" height="100%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi22" id="equi22" src="種子社群街區/設備切片/選單大小/方塊設備22(155X75px).png" width="15%" height="100%" style="touch-action:none"> 
+	  
+	</div> 
+	</div>
+	<!第三頁設備>
+	<div id="List6-3"  style="position:fixed;top:63%;left:0%;bottom:15%;display:none;z-index:99999;overflow:hidden">
+	<img src="種子社群街區/介面切片/選單.png" width="100%" height="120%" style="position:relative;top:-10%" >
+	<div style="position:absolute;top:15%;bottom:15%;left:3%">
+		<input class="equi" type="image" name="equi22" id="equi22" src="種子社群街區/設備切片/選單大小/方塊設備22(155X75px).png" width="15%" height="100%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi23" id="equi23" src="種子社群街區/設備切片/選單大小/方塊設備23(160X64px).png" width="15%" height="100%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi24" id="equi24" src="種子社群街區/設備切片/選單大小/方塊設備24(140X64px).png" width="15%" height="100%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi25" id="equi25" src="種子社群街區/設備切片/選單大小/方塊設備25(110X86px).png" width="15%" height="100%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi26" id="equi26" src="種子社群街區/設備切片/選單大小/方塊設備26(150X86px).png" width="15%" height="100%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi27" id="equi27" src="種子社群街區/設備切片/選單大小/方塊設備27(252X106.1px).png" width="15%" height="100%" style="touch-action:none"> 
+	  
+	</div> 
+	</div>
+	<!第四頁設備>
+	<div id="List6-4"  style="position:fixed;top:63%;left:0%;bottom:15%;display:none;z-index:99999;overflow:hidden">
+	<img src="種子社群街區/介面切片/選單.png" width="100%" height="120%" style="position:relative;top:-10%">
+	<div style="position:absolute;top:15%;bottom:15%;left:3%">
+	<input class="equi" type="image" name="equi28" id="equi28" src="種子社群街區/設備切片/選單大小/方塊設備28(178X118px).png" width="18%" height="100%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi29" id="equi29" src="種子社群街區/設備切片/選單大小/方塊設備29(198X118px).png" width="18%" height="100%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi30" id="equi30" src="種子社群街區/設備切片/選單大小/方塊設備30(180X90px).png" width="18%" height="100%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi31" id="equi31" src="種子社群街區/設備切片/選單大小/方塊設備31(253X110px).png" width="18%" height="100%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi32" id="equi32" src="種子社群街區/設備切片/選單大小/方塊設備32(335X160px).png" width="20%" height="100%" style="touch-action:none"> 
+	  
+	</div>
+	</div>
+	<!第五頁設備>
+	<div id="List6-5"  style="position:fixed;top:63%;left:0%;bottom:15%;display:none;z-index:99999;overflow:hidden">
+	<img src="種子社群街區/介面切片/選單.png" width="100%" height="120%" style="position:relative;top:-10%">
+	<div style="position:absolute;top:15%;bottom:15%;left:3%">
+	<input class="equi" type="image" name="equi33" id="equi33" src="種子社群街區/設備切片/選單大小/方塊設備33(338X130px).png" width="20%" height="100%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi34" id="equi34" src="種子社群街區/設備切片/選單大小/方塊設備34(60X170px).png" width="6%" height="100%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi35" id="equi35" src="種子社群街區/設備切片/選單大小/方塊設備35(60X170px).png" width="6%" height="100%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi36" id="equi36" src="種子社群街區/設備切片/選單大小/方塊設備36(224X136px).png" width="7%" height="100%" style="touch-action:none"> 
+	  <input class="equi" type="image" name="equi37" id="equi37" src="種子社群街區/設備切片/選單大小/方塊設備37(81.33X150.8px).png" width="7%" height="100%" > 
+	</div>
+	</div>
+</div>
+
+<!以下是房屋選單的部分!>
+<div id="back_for_house" style="position:absolute;top:15%;bottom:15%;left:-100%;right:100%;overflow-y:hidden;overflow-x: hidden;touch-action:none">
+	<div id="List7"  style="position:fixed;top:63%;left:0%;bottom:15%;display:none;z-index:99999;overflow:hidden ">
+	<img src="種子社群街區/介面切片/選單.png" width="100%" height="120%" style="position:relative;top:-10%">
+	<div style="position:absolute;top:15%;bottom:15%;left:3%">
+	  <input class="house" type="image" name="house1" id="house1" src="種子社群街區/房屋切片/選單大小/方塊房屋1(260X148px).png" width="12%" height="100%" style="touch-action:none">
+	  <input class="house" type="image" name="house2" id="house2" src="種子社群街區/房屋切片/選單大小/方塊房屋2(90X160px).png" width="6.7%" height="100%" style="touch-action:none"> 
+	  <input class="house" type="image" name="house3" id="house3" src="種子社群街區/房屋切片/選單大小/方塊房屋3(96X165px).png" width="6.7%" height="100%" style="touch-action:none"> 
+	  <input class="house" type="image" name="house4" id="house4" src="種子社群街區/房屋切片/選單大小/方塊房屋4(86X165px).png" width="6.7%" height="100%" style="touch-action:none"> 
+	  <input class="house" type="image" name="house5" id="house5" src="種子社群街區/房屋切片/選單大小/方塊房屋5(74X165px).png" width="6.7%" height="100%" style="touch-action:none"> 
+	  <input class="house" type="image" name="house6" id="house6" src="種子社群街區/房屋切片/選單大小/方塊房屋6(69X167px).png" width="6.7%" height="100%" style="touch-action:none"> 
+	  <input class="house" type="image" name="house7" id="house7" src="種子社群街區/房屋切片/選單大小/方塊房屋7(156X161px).png" width="6.7%" height="100%" style="touch-action:none"> 
+	  <input class="house" type="image" name="house8" id="house8" src="種子社群街區/房屋切片/選單大小/方塊房屋8(123X158px).png" width="6.7%" height="100%" style="touch-action:none"> 
+	  <input class="house" type="image" name="house9" id="house9" src="種子社群街區/房屋切片/選單大小/方塊房屋9(140X158px).png" width="6.7%" height="100%" style="touch-action:none"> 
+	  <input class="house" type="image" name="house10" id="house10" src="種子社群街區/房屋切片/選單大小/方塊房屋10(132X154px).png" width="6.7%" height="100%" style="touch-action:none"> 
+	  <input class="house" type="image" name="house11" id="house11" src="種子社群街區/房屋切片/選單大小/方塊房屋11(100X158px).png" width="6.7%" height="100%" style="touch-action:none"> 
+	  <input class="house" type="image" name="house12" id="house12" src="種子社群街區/房屋切片/選單大小/方塊房屋12(110X151px).png" width="6.7%" height="100%" style="touch-action:none"> 
+	</div> 
+	</div>
+	<!第二頁房屋>
+	<div id="List7-2"  style="position:fixed;top:63%;left:0%;bottom:15%;display:none;z-index:99999;overflow:hidden">
+	<img src="種子社群街區/介面切片/選單.png" width="100%" height="120%" style="position:relative;top:-10%">
+	<div style="position:absolute;top:15%;bottom:15%;left:3%">
+	  <input class="house" type="image" name="house13" id="house13" src="種子社群街區/房屋切片/選單大小/方塊房屋13(86X160px).png" width="7%" height="100%" style="touch-action:none"> 
+	  <input class="house" type="image" name="house14" id="house14" src="種子社群街區/房屋切片/選單大小/方塊房屋14(270X160px).png" width="10%" height="100%" style="touch-action:none"> 
+	  <input class="house" type="image" name="house15" id="house15" src="種子社群街區/房屋切片/選單大小/方塊房屋15(165X160px).png" width="7%" height="100%" style="touch-action:none"> 
+	  <input class="house" type="image" name="house16" id="house16" src="種子社群街區/房屋切片/選單大小/方塊房屋16(135X166px).png" width="7%" height="100%" style="touch-action:none"> 
+	  <input class="house" type="image" name="house17" id="house17" src="種子社群街區/房屋切片/選單大小/方塊房屋17(173X159px).png" width="10%" height="100%" style="touch-action:none"> 
+	  <input class="house" type="image" name="house18" id="house18" src="種子社群街區/房屋切片/選單大小/方塊房屋18(159X159px).png" width="7%" height="100%" style="touch-action:none"> 
+	  <input class="house" type="image" name="house19" id="house19" src="種子社群街區/房屋切片/選單大小/方塊房屋19(166X163px).png" width="7%" height="100%" style="touch-action:none"> 
+	  <input class="house" type="image" name="house20" id="house20" src="種子社群街區/房屋切片/選單大小/方塊房屋20(210X163px).png" width="7%" height="100%" style="touch-action:none"> 
+	  
+	</div> 
+	</div>
+</div>
+
+<!以下是車輛選單的部分!>
+<div id="back_for_car" style="position:absolute;top:15%;bottom:15%;left:-100%;right:100%;overflow-y:hidden;overflow-x: hidden;touch-action:none">
+
+	<div id="List9"  style="position:fixed;top:63%;left:0%;bottom:15%;display:none;z-index:99999">
+	<img src="種子社群街區/介面切片/選單.png" width="100%" height="120%" style="position:relative;top:-10%" >
+	<div style="position:absolute;top:15%;bottom:15%;left:3%">
+	  <input class="car" type="image" name="car1" id="car1" src="種子社群街區/車輛切片/選單大小/方塊車輛1(100X160px).png" width="4%" height="100%" style="touch-action:none">
+	  <input class="car" type="image" name="car2" id="car2" src="種子社群街區/車輛切片/選單大小/方塊車輛2(185X150px).png.png" width="8%" height="100%" style="touch-action:none">
+	  <input class="car" type="image" name="car3" id="car3" src="種子社群街區/車輛切片/選單大小/方塊車輛3(190X125px).png.png" width="8%" height="100%" style="touch-action:none">
+	  <input class="car" type="image" name="car4" id="car4" src="種子社群街區/車輛切片/選單大小/方塊車輛4(185X160px).png.png" width="8%" height="100%" style="touch-action:none">
+	  <input class="car" type="image" name="car5" id="car5" src="種子社群街區/車輛切片/選單大小/方塊車輛5(300X120px).png.png" width="12%" height="100%" style="touch-action:none">
+	  <input class="car" type="image" name="car6" id="car6" src="種子社群街區/車輛切片/選單大小/方塊車輛6(220X130px).png.png" width="11%" height="100%" style="touch-action:none">
+	  <input class="car" type="image" name="car7" id="car7" src="種子社群街區/車輛切片/選單大小/方塊車輛7(210X140px).png.png" width="10%" height="100%" style="touch-action:none">
+	  <input class="car" type="image" name="car8" id="car8" src="種子社群街區/車輛切片/選單大小/方塊車輛8(390X130px).png.png" width="16%" height="100%" style="touch-action:none">
+	  <input class="car" type="image" name="car9" id="car9" src="種子社群街區/車輛切片/選單大小/方塊車輛9(400X145px).png.png" width="16%" height="100%" style="touch-action:none">
+	  
+	</div> 
+	</div>
+</div>
+<!以下是行道樹選單的部分!>
+<div id="back_for_tree" style="position:absolute;top:15%;bottom:15%;left:-100%;right:100%;overflow-y:hidden;overflow-x: hidden;touch-action:none">
+	<div id="List8"  style="position:fixed;top:63%;left:0%;bottom:15%;display:none;z-index:99999;overflow:hidden">
+		<img src="種子社群街區/介面切片/選單.png" width="100%" height="120%" style="position:relative;top:-10%" >
+		<div style="position:absolute;top:15%;bottom:15%;left:3%">
+      		<input class="tree" type="image" name="tree1" id="tree1" src="種子社群街區/行道樹切片/選單大小/方塊行道樹1(332X145px).png" width="12%" height="100%" style="touch-action:none">
+	  		<input class="tree" type="image" name="tree2" id="tree2" src="種子社群街區/行道樹切片/選單大小/方塊設備2(192X131px).png" width="6.7%" height="100%" style="touch-action:none"> 
+	  		<input class="tree" type="image" name="tree3" id="tree3" src="種子社群街區/行道樹切片/選單大小/方塊設備3(330X135px).png" width="10%" height="100%" style="touch-action:none"> 
+	  		<input class="tree" type="image" name="tree4" id="tree4" src="種子社群街區/行道樹切片/選單大小/方塊設備4(125X160px).png" width="6.7%" height="100%" style="touch-action:none"> 
+	  		<input class="tree" type="image" name="tree5" id="tree5" src="種子社群街區/行道樹切片/選單大小/方塊設備5(125X160px).png" width="6.7%" height="100%" style="touch-action:none"> 
+	  		<input class="tree" type="image" name="tree6" id="tree6" src="種子社群街區/行道樹切片/選單大小/方塊設備6(157X150px).png" width="6.7%" height="100%" style="touch-action:none"> 
+	  		<input class="tree" type="image" name="tree7" id="tree7" src="種子社群街區/行道樹切片/選單大小/方塊設備7(125X145px).png" width="6.7%" height="100%" style="touch-action:none"> 
+	  		<input class="tree" type="image" name="tree8" id="tree8" src="種子社群街區/行道樹切片/選單大小/方塊設備8(160X150px).png" width="6.7%" height="100%" style="touch-action:none"> 
+	  		<input class="tree" type="image" name="tree9" id="tree9" src="種子社群街區/行道樹切片/選單大小/方塊設備9(150X144px).png" width="6.7%" height="100%" style="touch-action:none"> 
+	  		<input class="tree" type="image" name="tree10" id="tree10" src="種子社群街區/行道樹切片/選單大小/方塊設備10(110X140px).png" width="6.7%" height="100%" style="touch-action:none"> 
+	  		<input class="tree" type="image" name="tree11" id="tree11" src="種子社群街區/行道樹切片/選單大小/方塊設備11(105X140px).png" width="6.7%" height="100%" style="touch-action:none"> 
+	  		<input class="tree" type="image" name="tree12" id="tree12" src="種子社群街區/行道樹切片/選單大小/方塊設備12(70X140px).png" width="6.7%" height="100%" style="touch-action:none"> 
+		</div>
+	</div>
+    <!第二頁行道樹>
+	<div id="List8-2"  style="position:fixed;top:63%;left:0%;bottom:15%;display:none;z-index:99999;overflow:hidden">
+		<img src="種子社群街區/介面切片/選單.png" width="100%" height="120%" style="position:relative;top:-10%">
+		<div style="position:absolute;top:15%;bottom:15%;left:3%"> 
+      		<input class="tree" type="image" name="tree13" id="tree13" src="種子社群街區/行道樹切片/選單大小/方塊設備13(75X140px).png" width="12%" height="100%" style="touch-action:none">
+	  		<input class="tree" type="image" name="tree14" id="tree14" src="種子社群街區/行道樹切片/選單大小/方塊設備14(90X140px).png" width="6.7%" height="100%" style="touch-action:none"> 
+	  		<input class="tree" type="image" name="tree15" id="tree15" src="種子社群街區/行道樹切片/選單大小/方塊設備15(120X140px).png" width="6.7%" height="100%" style="touch-action:none"> 
+	  		<input class="tree" type="image" name="tree16" id="tree16" src="種子社群街區/行道樹切片/選單大小/方塊設備16(200X140px).png" width="6.7%" height="100%" style="touch-action:none"> 
+		</div>
+	</div>
+  
+</div>
+
+
+
+
+<div class="設備左移按鈕"><!這邊是在設備按下去之後出現選單，因為物件很多故增加左移右移鍵>
+  <p>
+  <input type="image" name="imageField17" id="imageField17" src="種子社群街區/介面切片/左移鍵.png" width = "3%" height = "7%" style="position:fixed;top:71%;left:2%;visibility:hidden;z-index:99999">	
+	</p>	  
+</div>
+<div class="設備右移按鈕">
+  <p>
+  <input type="image" name="imageField18" id="imageField18" src="種子社群街區/介面切片/右移鍵.png" width = "3%" height = "7%" style="position:fixed;top:71%;left:94%;visibility:hidden;z-index:99999">	
+	</p>	  
+</div>
+
+<div class="房屋左移按鈕"><!這邊是在房屋按下去之後出現選單，因為物件很多故增加左移右移鍵>
+  <p>
+  <input type="image" name="imageField19" id="imageField19" src="種子社群街區/介面切片/左移鍵.png" width = "3%" height = "7%" style="position:fixed;top:71%;left:2%;visibility:hidden;z-index:99999">	
+	</p>	  
+</div>
+<div class="房屋右移按鈕">
+  <p>
+  <input type="image" name="imageField20" id="imageField20" src="種子社群街區/介面切片/右移鍵.png" width = "3%" height = "7%" style="position:fixed;top:71%;left:94%;visibility:hidden;z-index:99999">	
+	</p>	  
+</div>
+<div class="行道樹左移按鈕"><!這邊是在行道樹按下去之後出現選單，因為物件很多故增加左移右移鍵>
+  <p>
+  <input type="image" name="imageField21" id="imageField21" src="種子社群街區/介面切片/左移鍵.png" width = "3%" height = "7%" style="position:fixed;top:71%;left:2%;visibility:hidden;z-index:99999">	
+	</p>	  
+</div>
+<div class="行道樹右移按鈕">
+  <p>
+  <input type="image" name="imageField22" id="imageField22" src="種子社群街區/介面切片/右移鍵.png" width = "3%" height = "7%" style="position:fixed;top:71%;left:94%;visibility:hidden;z-index:99999">	
+	</p>	  
+</div>
+
+
+
+<!這是那兩條>
+<div id='line_top' style="position:fixed;top:16%;left:0%;right:0%">
+	<img src="種子社群街區/介面切片/3F_line.png" width="100%" height="100%">
+</div>
+
+<div id='line_bottom' style="position:fixed;top:84%;left:0%;right:0%">
+	<img src="種子社群街區/介面切片/3F_line.png" width="100%" height="100%">
+</div>
+
+<!關閉選單啦\>
+<div>
+  <p style="position:fixed;top:61%;left:95%;z-index:99999">
+  <input type="image" name="image1" id="image1" src="種子社群街區/介面切片/關閉選單按鈕1.png" width="82%" height="82%" style="display:none;" >
+	</p>
+</div>
+
+
+
+
+
+
+</body>
+<script>
+	
+
+</script>
+</html>
